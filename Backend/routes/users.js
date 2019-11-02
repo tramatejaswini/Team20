@@ -38,10 +38,20 @@ router.get('/', async function (req, res, next) {
   }
 });
 
-// get all users (test route)
+// get all students
 router.get('/students', async function (req, res, next) {
   try {
     const { results } = await getStudent();
+    res.json(results);
+  } catch (e) {
+    res.status(500).send(e.message || e);
+  }
+});
+
+// get all Interviewers
+router.get('/Interviewers', async function (req, res, next) {
+  try {
+    const { results } = await getInterviewer();
     res.json(results);
   } catch (e) {
     res.status(500).send(e.message || e);
