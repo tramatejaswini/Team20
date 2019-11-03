@@ -2,12 +2,6 @@ const mysql = require('mysql');
 const { sql_host, sql_port, sql_user, sql_password, sql_database, sql_connectionLimit } = require('../config');
 
 const { createTables } = require('./init');
-// const { getPersons, savePerson, editPerson } = require('./persons');
-// const { getItems, saveItem, editItem, delItem } = require('./items');
-// const { getRestaurants, saveRestaurant, editRestaurant } = require('./restaurants');
-// const { getOrders, saveOrder, editOrder } = require('./orders');
-// const { getOrderDetails, saveOrderDetails } = require('./orderdetails');
-// const { editSections } = require('./items');
 const { getStudent } = require('./students');
 const { getMatching, saveInterviewDetails } = require('./matching');
 
@@ -56,5 +50,5 @@ module.exports = {
     createTables: _createTables,
     getStudent: _getStudent,
     getMatching: _getMatching,
-    saveInterviewDetails : _saveInterviewDetails
+    saveInterviewDetails: _saveInterviewDetails
 };

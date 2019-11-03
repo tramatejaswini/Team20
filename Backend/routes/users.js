@@ -8,7 +8,7 @@ const multer = require('multer');
 const upload = multer({ dest: path.join(__dirname, '..', 'uploads/') });
 
 const { jwtsecret, encrAlgorithm, encrSecret } = require('../config');
-const { getStudent, getPersons, savePerson, editPerson } = require('../DAL')
+const { getStudent, getInterviewer, getPersons, savePerson, editPerson } = require('../DAL')
 const { getRestaurants, saveRestaurant, editRestaurant } = require('../DAL')
 const { getItems, saveItem, editItem } = require('../DAL')
 const { getMatching, saveInterviewDetails} = require('../DAL')
@@ -85,7 +85,7 @@ const { Student_ID, Interviewer_ID  } = req.query;
 });
 
 // get all Interviewers
-router.get('/Interviewers', async function (req, res, next) {
+router.get('/interviewers', async function (req, res, next) {
   try {
     const { results } = await getInterviewer();
     res.json(results);

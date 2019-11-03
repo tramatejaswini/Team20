@@ -31,7 +31,7 @@ const getStudent = connection => (person = {}) => {
 
 
 const saveStudent = connection => person => {
-    const { firstName, lastName, email,password , role} = person;
+    const { firstName, lastName, email, password, role } = person;
     let query = `insert into ${_tableName} (firstName, lastName, email,password , role)` +
         `VALUES ('${firstName}', '${lastName}', '${email}', '${password}', '${role}');`;
     return new Promise((resolve, reject) => {
@@ -49,7 +49,7 @@ const saveStudent = connection => person => {
 };
 
 const editPerson = connection => person => {
-    const { id, firstName, LastName, fullName, phone, email, gender, ethnicity, cohort, evening, location, careerInterest, attendence, moduleScore, projectScore,bonus, totalScore , graduationStatus } = person;
+    const { id, firstName, LastName, fullName, phone, email, gender, ethnicity, cohort, evening, location, careerInterest, attendence, moduleScore, projectScore, bonus, totalScore, graduationStatus } = person;
     let query = `UPDATE ${_tableName}`;
     const clause = [];
 
@@ -86,7 +86,6 @@ const editPerson = connection => person => {
 };
 
 module.exports = {
-
     getStudent,
     editPerson
 };
