@@ -11,7 +11,7 @@ const { jwtsecret, encrAlgorithm, encrSecret } = require('../config');
 const { getStudent, getInterviewer, getPersons, savePerson, editPerson } = require('../DAL')
 const { getRestaurants, saveRestaurant, editRestaurant } = require('../DAL')
 const { getItems, saveItem, editItem } = require('../DAL')
-const { getMatching, saveInterviewDetails, updateInterviewerStatus, getupdatedInterviewerDetails} = require('../DAL')
+const { getMatching, saveInterviewDetails, updateInterviewerStatus, getupdatedInterviewerDetails, statusChange} = require('../DAL')
 
 // crypto (can be updated to use 'bcrypt' instead)
 const _encrypt = password => {
@@ -264,4 +264,27 @@ router.put('/profile', upload.single('profileImage'), async (req, res, next) => 
     res.status(500).json({ message: e.message });
   }
 });
+
+router.put('/update',  async (req, res, next) => {
+  const { Interviewer_ID, Student_ID, Status} = req.query;
+  
+  interviewDetailsUpdate = {
+    Interviewer_Id : Interviewer_ID,
+    Student_Id : Student_ID,
+    Status : Status
+
+    
+  }
+
+  try {
+    const { results } = await statusChange(interviewDetailsUpdate);
+    res.send(results);
+  }
+  catch (e) {
+    console.log("no matching results");
+    res.status(500).send(e.message || e);
+  }
+});
+
+
 module.exports = router;
