@@ -11,7 +11,7 @@ const { jwtsecret, encrAlgorithm, encrSecret } = require('../config');
 const { getStudent, getInterviewer, getPersons, savePerson, editPerson } = require('../DAL')
 const { getRestaurants, saveRestaurant, editRestaurant } = require('../DAL')
 const { getItems, saveItem, editItem } = require('../DAL')
-const { getMatching, saveInterviewDetails} = require('../DAL')
+const { getMatching, saveInterviewDetails, updateInterviewerStatus} = require('../DAL')
 
 // crypto (can be updated to use 'bcrypt' instead)
 const _encrypt = password => {
@@ -52,13 +52,18 @@ router.get('/students', async function (req, res, next) {
 // get all students matching with interviewer
 router.get('/matching', async function (req, res, next) {
 //const { Interviewer_ID , Student_ID } = req.query;
-const { Student_ID, Interviewer_ID  } = req.query;
+const Student_ID = 2;
+const { Interviewer_ID  } = req.query;
   try {
     const { results } = await getMatching();
     console.log(results);
-    matching_result = JSON.parse(JSON.stringify(results[0]));
+    if(results)
+    {
+      matching_result = JSON.parse(JSON.stringify(results[0]));
+    
     console.log(matching_result);
-    console.log(matching_result.Interviewer_ID);
+    console.log(Student_ID);
+    
     const Interviewer_Id = matching_result.Interviewer_ID;
 
 
@@ -72,17 +77,28 @@ const { Student_ID, Interviewer_ID  } = req.query;
 
     interviewDetails = {
       Interviewer_Id : matching_result.Interviewer_ID,
-      Student_Id : matching_result.Student_ID,
+      //Student_Id : matching_result.Student_ID,
+      Student_Id : 2,
       Location : '1',
       Time : (curr_year + '-' + curr_month + '-' + curr_date + ' ' + hour + ':' + minutes + ':' + seconds),
       Status : 'planned'
     }
-    update_query = `INSERT INTO Interview_Details(Interviewer_Id, Student_Id, Location, Time, Status) VALUES ('${matching_result.Interviewer_Id}','${Student_ID}', 1,${d}, 'Planned' )`;
-    console.log(update_query);
+
     await saveInterviewDetails(interviewDetails);
 
+    interviewDetailsUpdate = {
+      Interviewer_Id : matching_result.Interviewer_ID,
+      
+    }
+
+    await updateInterviewerStatus(interviewDetailsUpdate);
+
     res.json(results);
+    }
+    
+    
   } catch (e) {
+    console.log("no matching results");
     res.status(500).send(e.message || e);
   }
 });
