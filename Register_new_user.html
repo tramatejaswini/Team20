@@ -1,0 +1,181 @@
+  <!DOCTYPE html>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+  <style>
+  body {
+	  text-align: center;
+  }
+
+	ul{
+		list-style: none;
+		text-align: center;
+	}
+
+	li {
+		list-style: none;
+	}
+
+	.formContainer{
+		visibility: hidden;
+		position: relative;
+	}
+
+	.paypalForm{
+		visibility: hidden;
+		text-align: center;
+		position: relative;
+		top: -800px
+	}
+
+  </style>
+
+  <body>
+
+  <form>
+		<ul>
+			<li>
+				<input value="1" type="radio" name="formselector" onClick="displayForm(this)"></input> Student<br/>
+		</div>
+
+	<li>
+		<input value="2" type="radio" name="formselector" onClick="displayForm(this)"></input> Interviewer<br/>
+	</li>
+		</ul>
+	</form>
+
+  <div class="formContainer" id="ccformContainer">
+  <form id="ccform" action="/my-handling-form-page" method="post">
+
+		<h1>Student Registration</h1>
+
+			<ul>
+			<li>
+				<label for="name">First Name:</label><br/>
+			  <input type="text" id="firstname" name="firstname">
+      </li>
+
+			<li>
+				<label for="name">Last Name:</label><br/>
+		    <input type="text" id="lastname" name="lastname">
+			</li>
+
+			<li>
+				<label for="name">Phone Number:</label><br/>
+		    <input type="text" id="phone" name="phone">
+			</li>
+
+			<li>
+				<label for="mail">E-mail:</label><br/>
+        <input type="email" id="mail" name="mail">
+			</li>
+
+			<li>
+				<label for="msg">Gender:</label><br/>
+        <input id="gender" name="gender">
+			</li>
+
+			<li>
+				<label for="msg">Ethnicity:</label><br/>
+				<input id="Ethnicity" name="Ethnicity">
+			<li>
+
+		  <li>
+				<label for="msg">Cohort:</label><br/>
+				<input id="Cohort" name="Cohort">
+			</li>
+
+			<li>
+				<label for="msg">Evening:</label><br/>
+				<input id="Evening" name="Evening">
+			</li>
+
+			<li>
+				<label for="msg">Location:</label><br/>
+			  <input id="Location" name="Location">
+			</li>
+
+			<li>
+				<label for="msg">Career Interests:</label><br/>
+			  <input id="career" name="career">
+			</li>
+
+			<li>
+				<label for="msg">Graduation Status:</label><br/>
+				<input id="status" name="status">
+			</li>
+
+			<li>
+        <div class="button">
+			    <button type="submit">Register</button>
+			  </div>
+			</li>
+			</ul>
+
+        </form>
+    </div>
+
+    <div class="paypalForm" id="paypalformContainer">
+        <form id="ccform" action="/my-handling-form-page" method="post">
+					<h1>Interviewer Registration</h1>
+
+					  <ul>
+							<li>
+								<label for="name">Name:</label><br/>
+                <input type="text" id="name" name="name">
+              </li>
+							
+              <li>
+								<label for="mail">E-mail:</label><br/>
+                <input type="email" id="mail" name="mail">
+              </li>
+
+              <li>
+								<label for="name">Phone Number:</label><br/>
+                <input type="text" id="phone" name="phone">
+              </li>
+
+              <li>
+								<label for="msg">Employer:</label><br/>
+                <textarea id="Employer" name="Employer"></textarea>
+              </li>
+
+              <li>
+								<label for="msg">Industry Title:</label><br/>
+                <textarea id="title" name="title"></textarea>
+              </li> 
+
+              <li>
+								<label for="msg">City/State:</label><br/>
+                <textarea id="city" name="city"></textarea>
+              </li>             
+
+             <li>
+							 <label for="msg">Career Fields:</label><br/>
+               <textarea id="career" name="career"></textarea>
+             </li>
+
+							<li>
+                <div class="button">
+                  <button type="submit">Register</button>
+                </div>              
+							</li>
+
+						</ul>
+          </form>
+	      </div>
+				<br/>
+
+
+<script type="text/javascript"> 
+    function displayForm(c) {
+        if (c.value == "1") {
+            document.getElementById("ccformContainer").style.visibility = 'visible';
+            document.getElementById("paypalformContainer").style.visibility = 'hidden';
+        } else if (c.value == "2") {
+            document.getElementById("ccformContainer").style.visibility = 'hidden';
+            document.getElementById("paypalformContainer").style.visibility = 'visible';
+        } else {}
+    }
+</script>
+</body>
+</html>
