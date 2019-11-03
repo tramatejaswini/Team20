@@ -11,7 +11,7 @@ const { jwtsecret, encrAlgorithm, encrSecret } = require('../config');
 const { getStudent, getInterviewer, getPersons, savePerson, editPerson } = require('../DAL')
 const { getRestaurants, saveRestaurant, editRestaurant } = require('../DAL')
 const { getItems, saveItem, editItem } = require('../DAL')
-const { getMatching, saveInterviewDetails, updateInterviewerStatus} = require('../DAL')
+const { getMatching, saveInterviewDetails, updateInterviewerStatus, getupdatedInterviewerDetails} = require('../DAL')
 
 // crypto (can be updated to use 'bcrypt' instead)
 const _encrypt = password => {
@@ -84,14 +84,36 @@ const { Interviewer_ID  } = req.query;
       Status : 'planned'
     }
 
-    await saveInterviewDetails(interviewDetails);
+    try {
+      const { interviewDetailsResults } = await saveInterviewDetails(interviewDetails);
+    }
+    catch (e) {
+      console.log("no matching results");
+      res.status(500).send(e.message || e);
+    }
+    
 
     interviewDetailsUpdate = {
       Interviewer_Id : matching_result.Interviewer_ID,
       
     }
 
-    await updateInterviewerStatus(interviewDetailsUpdate);
+    try {
+      const { updateInterviewerResults } = await updateInterviewerStatus(interviewDetailsUpdate);
+    }
+    catch (e) {
+      console.log("no matching results");
+      res.status(500).send(e.message || e);
+    }
+
+    try {
+      const { results } = await getupdatedInterviewerDetails(interviewDetailsUpdate);
+    }
+    catch (e) {
+      console.log("no matching results");
+      res.status(500).send(e.message || e);
+    }
+    
 
     res.json(results);
     }
