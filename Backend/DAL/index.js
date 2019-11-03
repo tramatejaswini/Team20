@@ -3,7 +3,7 @@ const { sql_host, sql_port, sql_user, sql_password, sql_database, sql_connection
 
 const { createTables } = require('./init');
 const { getStudent } = require('./students');
-const { getMatching, saveInterviewDetails , updateInterviewerStatus} = require('./matching');
+const { getMatching, saveInterviewDetails , updateInterviewerStatus, getupdatedInterviewerDetails} = require('./matching');
 
 const pool = mysql.createPool({
     connectionLimit: sql_connectionLimit,
@@ -49,6 +49,11 @@ const _updateInterviewerStatus = async whereClause => {
     return updateInterviewerStatus(conn)(whereClause);
 };
 
+const _getupdatedInterviewerDetails = async whereClause => {
+    const conn = await getConnection();
+    return getupdatedInterviewerDetails(conn)(whereClause);
+};
+
 
 
 module.exports = {
@@ -56,5 +61,6 @@ module.exports = {
     getStudent: _getStudent,
     getMatching: _getMatching,
     saveInterviewDetails: _saveInterviewDetails,
-    updateInterviewerStatus : _updateInterviewerStatus
+    updateInterviewerStatus : _updateInterviewerStatus,
+    getupdatedInterviewerDetails : _getupdatedInterviewerDetails
 };
