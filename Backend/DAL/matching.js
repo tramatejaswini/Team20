@@ -88,13 +88,32 @@ const getupdatedInterviewerDetails = connection => interviewDetailsUpdate => {
     });
 };
 
+const statusChange = connection => interviewDetailsUpdate => {
+    const { Interviewer_Id , Student_Id, Status} = interviewDetailsUpdate;
+    let query = `UPDATE Interview_Details SET Status = ${Status} WHERE Interviewer_Id = ${Interviewer_Id} and Student_Id = ${Student_Id};`;
+    
+    return new Promise((resolve, reject) => {
+        connection.query(query, (error, results, fields) => {
+            // release connection first!
+            connection.release();
+
+            if (error) {
+                reject(error);
+            } else {
+                resolve({ results, fields });
+            }
+        });
+    });
+};
+
 
 
 module.exports = {
     getMatching,
     saveInterviewDetails,
     updateInterviewerStatus,
-getupdatedInterviewerDetails 
+getupdatedInterviewerDetails ,
+statusChange
 
     
 
