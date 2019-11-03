@@ -51,13 +51,16 @@ router.get('/students', async function (req, res, next) {
 
 // get all students matching with interviewer
 router.get('/matching', async function (req, res, next) {
+//const { Interviewer_ID , Student_ID } = req.query;
 const { Student_ID, Interviewer_ID  } = req.query;
   try {
     const { results } = await getMatching();
+    console.log(results);
     matching_result = JSON.parse(JSON.stringify(results[0]));
+    console.log(matching_result);
     console.log(matching_result.Interviewer_ID);
     const Interviewer_Id = matching_result.Interviewer_ID;
-    
+
 
     var d = new Date();
     var curr_date = d.getDate();
@@ -74,10 +77,10 @@ const { Student_ID, Interviewer_ID  } = req.query;
       Time : (curr_year + '-' + curr_month + '-' + curr_date + ' ' + hour + ':' + minutes + ':' + seconds),
       Status : 'planned'
     }
-    update_query = `INSERT INTO Interview_Details(Interviewer_Id, Student_Id, Location, Time, Status) VALUES ('${matching_result.Interviewer_ID},'${matching_result.Student_ID}', 1,${d}, 'Planned' )`;
+    update_query = `INSERT INTO Interview_Details(Interviewer_Id, Student_Id, Location, Time, Status) VALUES ('${matching_result.Interviewer_Id}','${Student_ID}', 1,${d}, 'Planned' )`;
     console.log(update_query);
     await saveInterviewDetails(interviewDetails);
-    
+
     res.json(results);
   } catch (e) {
     res.status(500).send(e.message || e);
