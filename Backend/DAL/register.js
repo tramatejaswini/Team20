@@ -1,4 +1,4 @@
-const _tableName = 'Student';
+const _tableName = 'Register';
 
 const getStudent = connection => (person = {}) => {
     const { id, email, password } = person;
@@ -31,9 +31,9 @@ const getStudent = connection => (person = {}) => {
 
 
 const saveStudent = connection => person => {
-    const { firstName, lastName, email,password , role} = person;
+    const {id, firstName, lastName, email,password , role} = person;
     let query = `insert into ${_tableName} (firstName, lastName, email,password , role)` +
-        `VALUES ('${firstName}', '${lastName}', '${email}', '${password}', '${role}');`;
+        `VALUES ('${id}','${firstName}', '${lastName}', '${email}', '${password}', '${role}');`;
     return new Promise((resolve, reject) => {
         connection.query(query, (error, results, fields) => {
             // release connection first!
@@ -49,24 +49,27 @@ const saveStudent = connection => person => {
 };
 
 const editPerson = connection => person => {
-    const { id, firstName, LastName, fullName, phone, email, gender, ethnicity, cohort, evening, location, careerInterest, attendence, moduleScore, projectScore,bonus, totalScore , graduationStatus } = person;
+    const { firstName, lastName, email,password , role } = person;
     let query = `UPDATE ${_tableName}`;
     const clause = [];
 
-    if (email) {
-        clause.push(`email='${email}'`);
-    }
-    if (password) {
-        clause.push(`password='${password}'`);
-    }
+    if (id) {
+            clause.push(`id='${id}'`);
+        }
     if (firstName) {
         clause.push(`firstName='${firstName}'`);
     }
     if (lastName) {
         clause.push(`lastName='${lastName}'`);
     }
-    if (profileImage) {
-        clause.push(`profileImage='${profileImage}'`);
+    if (email) {
+        clause.push(`email='${email}'`);
+    }
+    if (password) {
+        clause.push(`password='${password}'`);
+    }
+    if (role) {
+        clause.push(`role='${role}'`);
     }
     query += ` SET ${clause.join(' , ')}`;
     query += `where id='${id}'`;
@@ -86,7 +89,7 @@ const editPerson = connection => person => {
 };
 
 module.exports = {
-
+    getPersons,
     getStudent,
     editPerson
 };

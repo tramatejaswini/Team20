@@ -11,6 +11,7 @@ const { jwtsecret, encrAlgorithm, encrSecret } = require('../config');
 const { getStudent, getPersons, savePerson, editPerson } = require('../DAL')
 const { getRestaurants, saveRestaurant, editRestaurant } = require('../DAL')
 const { getItems, saveItem, editItem } = require('../DAL')
+const { getMatching, saveInterviewDetails} = require('../DAL')
 
 // crypto (can be updated to use 'bcrypt' instead)
 const _encrypt = password => {
@@ -42,6 +43,41 @@ router.get('/', async function (req, res, next) {
 router.get('/students', async function (req, res, next) {
   try {
     const { results } = await getStudent();
+    res.json(results);
+  } catch (e) {
+    res.status(500).send(e.message || e);
+  }
+});
+
+// get all students matching with interviewer
+router.get('/matching', async function (req, res, next) {
+const { Student_ID, Interviewer_ID  } = req.query;
+  try {
+    const { results } = await getMatching();
+    matching_result = JSON.parse(JSON.stringify(results[0]));
+    console.log(matching_result.Interviewer_ID);
+    const Interviewer_Id = matching_result.Interviewer_ID;
+    
+
+    var d = new Date();
+    var curr_date = d.getDate();
+    var curr_month = d.getMonth() + 1;
+    var curr_year = d.getFullYear();
+    var seconds = d.getSeconds();
+    var minutes = d.getMinutes();
+    var hour = d.getHours();
+
+    interviewDetails = {
+      Interviewer_Id : matching_result.Interviewer_ID,
+      Student_Id : matching_result.Student_ID,
+      Location : '1',
+      Time : (curr_year + '-' + curr_month + '-' + curr_date + ' ' + hour + ':' + minutes + ':' + seconds),
+      Status : 'planned'
+    }
+    update_query = `INSERT INTO Interview_Details(Interviewer_Id, Student_Id, Location, Time, Status) VALUES ('${matching_result.Interviewer_ID},'${matching_result.Student_ID}', 1,${d}, 'Planned' )`;
+    console.log(update_query);
+    await saveInterviewDetails(interviewDetails);
+    
     res.json(results);
   } catch (e) {
     res.status(500).send(e.message || e);

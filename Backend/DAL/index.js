@@ -9,6 +9,7 @@ const { createTables } = require('./init');
 // const { getOrderDetails, saveOrderDetails } = require('./orderdetails');
 // const { editSections } = require('./items');
 const { getStudent } = require('./students');
+const { getMatching, saveInterviewDetails } = require('./matching');
 
 const pool = mysql.createPool({
     connectionLimit: sql_connectionLimit,
@@ -39,8 +40,21 @@ const _getStudent = async whereClause => {
     return getStudent(conn)(whereClause);
 };
 
+const _getMatching = async whereClause => {
+    const conn = await getConnection();
+    return getMatching(conn)(whereClause);
+};
+
+const _saveInterviewDetails = async whereClause => {
+    const conn = await getConnection();
+    return saveInterviewDetails(conn)(whereClause);
+};
+
+
 
 module.exports = {
     createTables: _createTables,
-    getStudent: _getStudent
+    getStudent: _getStudent,
+    getMatching: _getMatching,
+    saveInterviewDetails : _saveInterviewDetails
 };
