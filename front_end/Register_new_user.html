@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+
+<style>
+
+body {
+	text-align: center;
+}
+
+</style>
+
+
+<head >
+
+</head>
+
+<body>
+<form>
+        <input value="1" type="radio" name="formselector" onClick="displayForm(this)"></input>Student
+        <br/>
+        <input value="2" type="radio" name="formselector" onClick="displayForm(this)"></input>Interviewer</form>
+    <div style="visibility:hidden; position:relative" id="ccformContainer">
+        <form id="ccform" action="/my-handling-form-page" method="post">
+					<!--
+          <TABLE BORDER="1">
+						-->
+						<div class="container">
+							<div class="row">
+								<div class="column">
+									<label for="name">First Name:</label>
+									<input type="text" id="firstname" name="firstname">
+              </div>
+
+								<div class="column">
+									<label for="name">Last Name:</label>
+									<input type="text" id="lastname" name="lastname">
+                </div>
+
+								<div class="column">
+									<label for="name">Phone Number:</label>
+									<input type="text" id="phone" name="phone">
+                </div>
+
+								<div class="column">
+									<label for="mail">E-mail:</label>
+                  <input type="email" id="mail" name="mail">
+                </div>
+
+              <div class="row">
+								<div class="column">
+                  <label for="msg">Gender:</label>
+                  <input id="gender" name="gender">
+                </div>
+              </div>
+
+								<div class="column">
+									<label for="msg">Ethnicity:</label>
+									<input id="Ethnicity" name="Ethnicity">
+                </div> 
+
+								<div class="column">
+									<label for="msg">Cohort:</label>
+									<input id="Cohort" name="Cohort">
+                </div>
+
+								<div class="row">
+								<div class="column">
+									<label for="msg">Evening:</label>
+									<input id="Evening" name="Evening">
+                </div> 
+
+								<div class="column">
+									<label for="msg">Location:</label>
+									<input id="Location" name="Location">
+                </div>
+
+								<div class="column">
+									<label for="msg">Career Interests:</label>
+									<input id="career" name="career">
+                </div>
+
+								<div class="row">
+								<div class="column">
+									<label for="msg">Graduation Status:</label>
+									<input id="status" name="status">
+								  </div>
+								</div>
+
+								<div class="row">
+									<div class="column">
+                  <div class="button">
+									<button type="submit">Register</button>
+                  </div>
+                </div>
+              </div>
+
+        </form>
+    </div>
+    <div style="visibility:hidden;position:relative;top:-110px;margin-top:-110px" id="paypalformContainer">
+        <form id="ccform" action="/my-handling-form-page" method="post">
+            <div>
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name">
+              </div>
+
+              <div>
+                <label for="mail">E-mail:</label>
+                <input type="email" id="mail" name="mail">
+              </div>
+
+              <div>
+                <label for="name">Phone Number:</label>
+                <input type="text" id="phone" name="phone">
+              </div>
+
+              <div>
+                <label for="msg">Employer:</label>
+                <textarea id="Employer" name="Employer"></textarea>
+              </div>
+
+              <div>
+                <label for="msg">Industry Title:</label>
+                <textarea id="title" name="title"></textarea>
+              </div> 
+
+              <div>
+                <label for="msg">City/State:</label>
+                <textarea id="city" name="city"></textarea>
+              </div>             
+
+             <div>
+                <label for="msg">Career Fields:</label>
+                <textarea id="career" name="career"></textarea>
+              </div>
+
+              <div class="button">
+                <button type="submit">Register</button>
+              </div>              
+        </form>
+
+</form>
+
+<script type="text/javascript"> 
+    function displayForm(c) {
+        if (c.value == "1") {
+
+            document.getElementById("ccformContainer").style.visibility = 'visible';
+            document.getElementById("paypalformContainer").style.visibility = 'hidden';
+        } else if (c.value == "2") {
+            document.getElementById("ccformContainer").style.visibility = 'hidden';
+
+            document.getElementById("paypalformContainer").style.visibility = 'visible';
+        } else {}
+    }
+</script>
+</body>
+</html>
