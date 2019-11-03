@@ -1,14 +1,14 @@
 const _tableName1 = 'Student';
 const _tableName2 = 'Interviewer';
 
-const getMatching = connection => (person = {}) => {
+const getMatching = connection => (person = { Student_ID : req.body}) => {
     const {Student_ID, Interviewer_ID } = person;
-    let query = `select * from ${_tableName1} INNER JOIN ${_tableName2} ON ${_tableName1}.Career_Interests = ${_tableName2}.Career_Fields where ${_tableName2}.Available = 1 LIMIT 1`;
+    //let query = `select * from ${_tableName1} INNER JOIN ${_tableName2} ON ${_tableName1}.Career_Interests = ${_tableName2}.Career_Fields where ${_tableName2}.Available = 1 LIMIT 2`;
+    let query = `select * from Interviewer_Skills as sk , Interviewer as i , Student as s where Interviewer_Skill in (SELECT Student_Skill from Student_Skills where Student_Id = '${Student_ID}') and sk.Interviewer_Id=i.Interviewer_ID and i.Available = 1`;
     const clause = [];
-
-    if (Student_ID) {
-        clause.push(`Student_ID='${Student_ID}'`);
-    }
+    //if (Student_ID) {
+     //   clause.push(`Student_ID='${Student_ID}'`);
+    //}
     if (Interviewer_ID) {
         clause.push(`Interviewer_ID='${Interviewer_ID}'`);
     }
